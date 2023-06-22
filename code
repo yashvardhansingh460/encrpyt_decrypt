@@ -1,0 +1,159 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// function to encrypt the message
+string Encryption(string message,int shift_key){
+    string encrypt_code = "";
+    for(auto ch:message){
+        if(ch>='a' && ch<='z' || ch>='A' && ch<= 'Z'){
+            char base;
+            if(ch>='a' && ch<='z'){
+                base = 'a';
+            }
+            else{
+                base = 'A';
+            }
+            //moduluous used here to make boundation on the shift_key from 1 to 26
+            char c = (ch - base + shift_key)%26 + base;
+            encrypt_code+=c;
+        }
+        else {
+            encrypt_code+=ch;
+        }
+    }
+    return encrypt_code;
+}
+
+//function to decrypt the message
+string Decryption(string message,int shift_key){ 
+    string decrypt_code = "";
+    for(auto ch:message){
+        if(ch>='a' && ch<='z' || ch>='A' && ch<= 'Z'){
+            char base;
+            if(ch>='a' && ch<='z'){
+                base = 'a';
+            }
+            else{
+                base = 'A';
+            }
+            //moduluous used here to make boundation on the shift_key from 1 to 26
+            char c = (ch - base + 26-shift_key)%26 + base;
+            decrypt_code+=c;
+        }
+        else {
+            decrypt_code+=ch;
+        }
+    }
+    return decrypt_code;
+}
+
+
+
+
+int main(){
+    cout<<endl<<"***** CAESAR CIPHER PROGRAM : Encryption/Decryption *****"<<endl<<endl;
+    cout<<"Do you want to encrypt(e) or decrypt(d)"<<endl;
+    bool flag = true;
+    while(flag){
+    cout<<"Enter the character e(to encrypt) / d(to decrypt) : ";
+    char a;
+    cin>>a;
+    // cout<< a<<endl;
+    cin.ignore();
+    if(a== 'e' || a== 'E'){
+        flag = false;
+        cout<<endl<<"ENCRYPTION MODE SELECTED"<<endl<<endl;
+        
+        cout<<"Enter the message you wants to encrypted : "<<endl;
+        string msg;
+        getline(cin,msg);
+        // cout<<msg<<endl;
+        
+        
+        //encryption strategy to shift the current word to encoded with other word which is SHIFT_KEY times shifted from the current word
+        
+        cout<<"Enter the shift_key : " ;
+        int shift_key;
+        cin>>shift_key;
+        // cout<< shift_key <<endl;
+        
+        
+        string Encrypted_code = Encryption(msg,shift_key);
+        cout<<endl<<"your message encrypted to : "<<Encrypted_code<<endl<<endl;
+        cout<<"You want to exit from the program or want to run program again"<<endl;
+        cout<<"Enter (p) to run again or (e) to exit from the program : ";
+        char ask= 'p';
+        
+        while(ask!='p' || ask!='e'){
+            cin>>ask;
+        
+        if(ask=='p'){
+            cout<<endl<<"Your program run again !! "<<endl;
+            flag=true;
+            break;
+        }
+        if(ask=='e'){
+            cout<<endl<<"You exit from the program.!!"<<endl;
+            return 0;
+        }
+        else {
+        
+            cout<<"*** INVALID KEY ***"<<endl;
+            cout<<"Enter valid character p(to run program again) / e(to exit program) : ";
+            // cin>>ask;
+        }}
+        continue;
+        // return 0;
+    }
+    if(a== 'd' || a== 'D'){
+        flag = false;
+        cout<<endl<<"DECRYPTION MODE SELECTED"<<endl<<endl;
+        
+        cout<<"Enter the message you wants to decrypted : "<<endl;
+        string msg;
+        getline(cin,msg);
+        // cout<<msg<<endl;
+        
+        //decryption strategy to shift the current word to decoded to original word which is SHIFT_KEY times shifted earlier to encode
+        
+        cout<<"Enter the shift_key : " ;
+        int shift_key;
+        cin>>shift_key;
+        // cout<<shift_key<<endl;
+        
+        
+        string Decrypted_code = Decryption(msg,shift_key);
+        cout<<endl<<"your decrypted code is : "<<Decrypted_code<<endl<<endl;
+        cout<<"You want to exit from the program or want to run program again"<<endl;
+        cout<<"Enter (p) to run again or (e) to exit from the program : ";
+        char ask= 'p';
+        
+        while(ask!='p' || ask!='e'){
+            cin>>ask;
+        
+        if(ask=='p'){
+            cout<<endl<<"Your program run again !! "<<endl;
+            flag=true;
+            break;
+        }
+        if(ask=='e'){
+            cout<<endl<<"You exit from the program.!!"<<endl;
+            return 0;
+        }
+        else {
+        
+            cout<<"*** INVALID KEY ***"<<endl;
+            cout<<"Enter valid character p(to run program again) / e(to exit program) : ";
+            // cin>>ask;
+        }}
+        
+        
+        // return 0;
+    }
+    else {
+        flag = true;
+        cout<<"**** WRONG INPUT ****"<<endl<<"YOU CAN ONLY EITHER ENCRYPT(e/E) OR DECRYPT(d/D) THE MESSAGE"<<endl<<endl;
+    }
+}
+return 0;
+}
